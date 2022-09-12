@@ -11,6 +11,10 @@ module.exports = {
         "fill-screen": ["100vh", "100dvh"],
       },
 
+      gridColumn: {
+        "span-16": 'span 16 / span 16',
+      },
+
       colors: {
         "default": "#212a3b",
         "default-light": "#B7C2D7",

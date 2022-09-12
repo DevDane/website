@@ -1,6 +1,8 @@
+import { Motion, Presence } from "@motionone/solid";
 import { useNavigate, useParams } from "@solidjs/router";
 import { Component, createEffect, createSignal } from "solid-js";
 import Nav from "../components/nav";
+import Spinner from "../components/spinner";
 import ArrowIcon from "../icons/arrow";
 import GetColor from "../utils/colors/colors";
 
@@ -61,29 +63,51 @@ const Project : Component = () => {
       <div class="grid grid-rows-[auto,1fr,auto] w-full max-w-screen-xl mx-auto min-h-fill-screen">
         <Nav />
 
-        <main class="w-full p-8 flex flex-col justify-center items-center gap-2">
-          <h1 class="text-4xl font-bold text-center mt-8">{project()?.name ?? ""}</h1>
-          <h2 class="text-2xl mb-4 max-w-5xl text-center">{project()?.description ?? ""}</h2>
-          <div class="flex gap-4 mb-8">
-            {
-              project()?.languages.map((language) => (
-                <span class={`py-2 px-4 rounded-full`} style={`background-color: ${GetColor(language)}44; color: ${GetColor(language)}ff; border: 1px solid ${GetColor(language)}ff;`}>{language}</span>
-              ))
-            }
-          </div>
+        <main class="relative w-full p-8 flex flex-col justify-center items-center gap-2">
+          
+          <Motion.div 
+            initial={{opacity: 0, transform: "translateY(50px)" }}
+            animate={{opacity: 1, transform: "translateY(0)"}}
+            class="flex flex-col justify-center items-center gap-2">
+            <h1 class="text-4xl font-bold text-center mt-8">{project()?.name ?? ""}</h1>
+            <h2 class="text-2xl mb-4 max-w-5xl text-center">{project()?.description ?? ""}</h2>
+            <div class="flex flex-wrap justify-center w-full gap-4 mb-8">
+              {
+                project()?.languages.map((language, i) => (
+                  <Motion.div 
+                    transition={{delay: 0.1*i}}
+                    initial={{opacity: 0, transform: "translateX(50px)" }}
+                    animate={{opacity: 1, transform: "translateX(0)" }}
+                    class={`py-2 px-4 rounded-full text-center`} style={`background-color: ${GetColor(language)}44; color: ${GetColor(language)}ff; border: 1px solid ${GetColor(language)}ff;`}>{language}</Motion.div>
+                ))
+              }
+            </div>
+          </Motion.div>
 
-          <div class="flex justify-center items-center gap-8">
+          <Motion.div 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            class="flex justify-center items-center gap-8">
             <p class="flex justify-center items-center gap-1 text-lg">✨ {project()?.stargazersCount}</p>
             <p class="flex justify-center items-center gap-1 text-lg">👀 {project()?.stargazersCount}</p>
-          </div>
-          <a href={project()?.htmlUrl} target="_blank" class="underline flex justify-center items-center gap-2 hover:scale-105 transition-transform mb-16"><div class="w-4 h-4"><ArrowIcon/></div> View on Github</a>
+          </Motion.div>
+          <Motion.a 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            href={project()?.htmlUrl} target="_blank" class="underline flex justify-center items-center gap-2 hover:scale-105 transition-transform mb-16"><div class="w-4 h-4"><ArrowIcon/></div> View on Github</Motion.a>
 
-
-          {
-            project()?.imageUrl !== "" && (
-              <img src={project()?.imageUrl} class="w-full max-w-screen-xl" />
-            )
-          }
+          <Presence>
+            
+            {
+              project()?.imageUrl !== "" && (
+                <Motion.img 
+                  transition={{delay: 0.2}}
+                  initial={{opacity: 0, transform: "translateY(50px)" }}
+                  animate={{opacity: 1, transform: "translateY(0)" }}
+                  loading="lazy" src={project()?.imageUrl} class="w-full max-w-screen-xl" />
+              )
+            }
+          </Presence>
         </main>
 
         <footer class="w-full p-8">

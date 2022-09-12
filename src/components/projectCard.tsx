@@ -13,10 +13,10 @@ const ProjectCard : Component<IProjectCard> = (props) => {
       <h1 class="text-lg font-bold mb-2">{props.name}</h1>
       <p>{props.description}</p>
       <div class="inline-block min-h-[2rem] h-full"></div>
-      <div class="flex gap-4 w-full">
+      <div class="flex flex-wrap gap-4 max-w-full">
         {
           props.languages.map((language) => (
-            <span class={`h-fit text-sm py-2 px-4 rounded-full`} style={`background-color: ${GetColor(language)}44; color: ${GetColor(language)}ff; border: 1px solid ${GetColor(language)}ff;`}>{language}</span>
+            <div class={`text-center h-fit text-sm py-2 px-4 rounded-full`} style={`background-color: ${GetColor(language)}44; color: ${GetColor(language)}ff; border: 1px solid ${GetColor(language)}ff;`}>{language}</div>
           ))
         }
       </div>

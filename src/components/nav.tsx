@@ -5,19 +5,19 @@ import resume from "../files/Dane Walker - Resume.pdf";
 
 const Nav : Component = () => {
   return (
-    <header class="w-full">
+    <header class="w-full z-50">
       <nav class="w-full">
-        <ul class="grid md:grid-cols-12 grid-cols-6 justify-between items-center text-center">
-          <li class="px-4 py-8 self-center justify-self-center md:text-base text-sm">
+        <ul class="grid md:grid-cols-[repeat(24,minmax(0,1fr))] grid-cols-12 justify-between items-center text-center">
+          <li class="px-4 py-8 col-span-2 self-center justify-self-center md:text-base text-sm">
             <a href="/projects" class="hover:underline">Projects</a>
           </li>
-          <li class="px-4 py-8 self-center justify-self-center md:col-span-2 md:text-base text-sm">
+          <li class="px-4 py-8 col-span-2 self-center justify-self-center md:col-span-2 md:text-base text-sm">
             <a href={resume} download="Dane Walker - Resume" class="hover:underline">Resume</a>
           </li>
-          <li class="px-4 py-8 self-center justify-self-center text-center font-bold text-2xl md:col-span-6 col-span-2">
+          <li class="px-4 py-8 self-center justify-self-center text-center font-bold text-2xl md:col-span-16 col-span-4">
             <a href="/">DevDane</a>
           </li>
-          <li class="px-4 py-8 self-center justify-self-center md:col-start-11">
+          <li class="px-4 py-8 self-center justify-self-center md:col-start-[23] col-start-11">
             <a href="https://www.linkedin.com/in/danecwalker/" target="_blank">
               <div class="md:w-6 w-5 md:h-6 h-5">
                 <LinkedinIcon />

@@ -1,3 +1,4 @@
+import { Motion, Presence } from "@motionone/solid";
 import { Component, createEffect, createSignal } from "solid-js";
 import Nav from "../components/nav";
 import ProjectCard from "../components/projectCard";
@@ -51,28 +52,37 @@ const Home : Component = () => {
         <Nav />
         <main class="w-full p-8">
 
-          <div class="text-center mt-8 mb-24">
+          <Motion.div 
+            initial={{opacity: 0, transform: "translateY(50px)" }} 
+            animate={{opacity: 1, transform: "translateY(0)"}} class="text-center mt-8 mb-24">
             <h1 class="text-5xl font-bold mb-6">Dane Walker</h1>
             <h2 class="text-2xl mb-4">Mechatronics Engineering / Computer Science Student</h2>
             <h2 class="text-xl">📍 Brisbane, Australia</h2>
-          </div>
+          </Motion.div>
 
-          {
-            projects().length > 0 ? (
-              <div class="grid md:grid-cols-2 auto-rows-fr gap-4">
-                {
-                  projects().map((project) => (
-                    <a href={`/projects/${project.name}`}>
-                      <ProjectCard name={project.name} description={project.description} languages={project.languages} />
-                    </a>
-                  ))
-                }
-              </div>
-            ) :
-            (
-              <Spinner />
-            )
-          }
+          <Presence exitBeforeEnter>
+            {
+              projects().length > 0 ? (
+                  <div
+                    class="grid md:grid-cols-2 auto-rows-fr gap-4">
+                    {
+                      projects().map((project, i) => (
+                        <Motion.a
+                          transition={{delay: 0.1*i}}
+                          initial={{ opacity: 0, transform: "translateY(50px)" }}
+                          animate={{ opacity: 1, transform: "translateY(0)" }}
+                          href={`/projects/${project.name}`}>
+                          <ProjectCard name={project.name} description={project.description} languages={project.languages} />
+                        </Motion.a>
+                      ))
+                    }
+                  </div>
+              ) :
+              (
+                <Spinner />
+              )
+            }
+          </Presence>
         </main>
 
         <footer class="w-full p-8">
