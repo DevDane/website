@@ -13,6 +13,7 @@ module.exports = {
 
       gridColumn: {
         "span-16": 'span 16 / span 16',
+        "span-20": 'span 20 / span 20',
       },
 
       colors: {
